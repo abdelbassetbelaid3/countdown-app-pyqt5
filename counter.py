@@ -32,29 +32,23 @@ class Ui_Form(object):
                 timer = "{:02d}:{:02d}:{:02d}".format(h,m,s)
                 self.label.setText(timer)
         
-        def pause(y=False):
                 global pause
-                if y == True: 
-                        pause = True
-                        return pause
-                else: 
-                        pause = False
-                        return pause   
+
 
                 ##### function for start countdown
         def start_countDown(t):
                 while t:
-                        h  = t // 3600
-                        m  = t // 60
-                        s  = t % 60
+                        r = t
+                        h  = r // 3600
+                        r  = r - h * 3600
+                        m  = r // 60
+                        r  = r - m * 60
+                        s  = r % 60
                         timer = "{:02d}:{:02d}:{:02d}".format(h,m,s)
                         self.label.setText(timer)
                         app.processEvents()
                         sleep(1)
-                        if pause==True:
-                                t-=0
-                        else:
-                                t-=1
+                        t-=1
                 self.label.setText("00:00:00")        
 
                         
@@ -75,7 +69,6 @@ class Ui_Form(object):
 "}")
         self.pushButton.setObjectName("pushButton")
         self.pushButton_2 = QtWidgets.QPushButton(Form ,clicked = lambda : start_countDown(t))
-        self.pushButton_2.clicked.connect(lambda: pause())
         self.pushButton_2.setGeometry(QtCore.QRect(240, 90, 112, 34))
         self.pushButton_2.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButton_2.setStyleSheet("QPushButton{\n"
